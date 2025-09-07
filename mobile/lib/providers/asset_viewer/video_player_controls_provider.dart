@@ -68,4 +68,6 @@ class VideoPlayerControls extends StateNotifier<VideoPlaybackControls> {
         .value
         .copyWith(state: VideoPlaybackState.playing, position: Duration.zero);
   }
+
+  void seek(Duration duration) {}
 }

@@ -8,8 +8,6 @@ environment:
   sdk: '>=3.8.0 <4.0.0'
   flutter: 3.32.8
 
-isar_version: &isar_version 3.1.8
-
 dependencies:
   flutter:
     sdk: flutter
@@ -81,14 +79,15 @@ dependencies:
   openapi:
     path: openapi
   isar:
-    version: *isar_version
+    version: 3.1.8
     hosted: https://pub.isar-community.dev/
   isar_flutter_libs: # contains Isar Core
-    version: *isar_version
+    version: 3.1.8
     hosted: https://pub.isar-community.dev/
   # DB
   drift: ^2.23.1
   drift_flutter: ^0.2.4
+  video_thumbnail: ^0.5.6
 
 dev_dependencies:
   flutter_test:

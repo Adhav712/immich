@@ -9,6 +9,7 @@ import 'package:immich_mobile/providers/cast.provider.dart';
 import 'package:immich_mobile/utils/hooks/timer_hook.dart';
 import 'package:immich_mobile/widgets/asset_viewer/center_play_button.dart';
 import 'package:immich_mobile/widgets/common/delayed_loading_indicator.dart';
+import 'package:immich_mobile/widgets/asset_viewer/video_scrubber.dart';
 
 class CustomVideoPlayerControls extends HookConsumerWidget {
   final Duration hideTimerDuration;
@@ -89,14 +90,27 @@ class CustomVideoPlayerControls extends HookConsumerWidget {
             else
               GestureDetector(
                 onTap: () => ref.read(showControlsProvider.notifier).show = false,
-                child: CenterPlayButton(
-                  backgroundColor: Colors.black54,
-                  iconColor: Colors.white,
-                  isFinished: state == VideoPlaybackState.completed,
-                  isPlaying:
-                      state == VideoPlaybackState.playing || (cast.isCasting && cast.castState == CastState.playing),
-                  show: assetIsVideo && showControls,
-                  onPressed: togglePlay,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    CenterPlayButton(
+                      backgroundColor: Colors.black54,
+                      iconColor: Colors.white,
+                      isFinished: state == VideoPlaybackState.completed,
+                      isPlaying:
+                          state == VideoPlaybackState.playing ||
+                          (cast.isCasting && cast.castState == CastState.playing),
+                      show: assetIsVideo && showControls,
+                      onPressed: togglePlay,
+                    ),
+                    if (assetIsVideo && showControls)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 16.0),
+                        child: VideoScrubber(
+                          duration: ref.watch(videoPlaybackValueProvider.select((value) => value.duration)),
+                        ),
+                      ),
+                  ],
                 ),
               ),
           ],
